@@ -48,7 +48,7 @@ const XModal = () => {
           Open Form
         </button>
         {isOpen && (
-          <div className="modal-overlay">
+          <div className="modal-overlay modal">
             <div className="modal-content">
               <h3>Fill Details</h3>
               <form onSubmit={handleSubmit}>
