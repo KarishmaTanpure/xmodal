@@ -17,27 +17,25 @@ const XModal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (
-      !formData.username ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.dob
-    ) {
+  
+    if (!formData.username || !formData.email || !formData.phone || !formData.dob) {
       alert('Please fill out all fields.');
     } else if (!formData.email.includes('@')) {
       alert('Invalid email. Please check your email address.');
+    } else if (!formData.phone) {
+      alert('Please enter your phone number.');
     } else if (formData.phone.length !== 10 || isNaN(formData.phone)) {
       alert('Invalid phone number. Please enter a 10-digit phone number.');
+    } else if (!formData.dob) {
+      alert('Please enter your date of birth.');
     } else if (new Date(formData.dob) > new Date()) {
       alert('Invalid date of birth. Please enter a past date.');
     } else {
-      
       alert('Form submitted successfully.');
       setIsOpen(false);
-
     }
   };
+  
 
   
   return (
