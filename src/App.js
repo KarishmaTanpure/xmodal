@@ -24,9 +24,9 @@ const XModal = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       alert('Invalid email. Please check your email address.');
     } else if (!/^\d{10}$/.test(formData.phone)) {
-      alert('Invalid phone number. Please enter a 10-digit phone number.');
+      alert('Invalid phone number');
     } else if (new Date(formData.dob) >= new Date()) {
-      alert('Invalid date of birth. Please enter a past date.');
+      alert('Invalid date of birth');
     } else {
       alert('Form submitted successfully.');
       setIsOpen(false);
