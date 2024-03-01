@@ -25,7 +25,7 @@ const XModal = () => {
       alert('Invalid email. Please check your email address.');
     } else if (!/^\d{10}$/.test(formData.phone)) {
       alert('Invalid phone number');
-    } else if (new Date(formData.dob) >= new Date()) {
+    } else if (new Date(formData.dob) > new Date()) {
       alert('Invalid date of birth');
     } else {
       alert('Form submitted successfully.');
@@ -33,8 +33,9 @@ const XModal = () => {
     }
   };
   
+  
   const handleClickOutside = (e) => {
-    if (e.target.className === 'modal-overlay') {
+    if (!e.target.closest('.modal-content')) {
       setIsOpen(false);
     }
   };
