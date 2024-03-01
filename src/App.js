@@ -15,20 +15,17 @@ const XModal = () => {
     setFormData({ ...formData, [id]: value });
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
   
     if (!formData.username || !formData.email || !formData.phone || !formData.dob) {
       alert('Please fill out all fields.');
-    } else if (!formData.email.includes('@')) {
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       alert('Invalid email. Please check your email address.');
-    } else if (!formData.phone) {
-      alert('Please enter your phone number.');
-    } else if (formData.phone.length !== 10 || isNaN(formData.phone)) {
+    } else if (!/^\d{10}$/.test(formData.phone)) {
       alert('Invalid phone number. Please enter a 10-digit phone number.');
-    } else if (!formData.dob) {
-      alert('Please enter your date of birth.');
-    } else if (new Date(formData.dob) > new Date()) {
+    } else if (new Date(formData.dob) >= new Date()) {
       alert('Invalid date of birth. Please enter a past date.');
     } else {
       alert('Form submitted successfully.');
@@ -36,8 +33,14 @@ const XModal = () => {
     }
   };
   
-
+  const handleClickOutside = (e) => {
+    if (e.target.className === 'modal-overlay') {
+      setIsOpen(false);
+    }
+  };
   
+  
+
   return (
     <div className="center-container">
       <div className="modal-container">
@@ -46,7 +49,7 @@ const XModal = () => {
           Open Form
         </button>
         {isOpen && (
-          <div className="modal-overlay modal">
+          <div className="modal-overlay modal" onClick={handleClickOutside}>
             <div className="modal-content">
               <h3>Fill Details</h3>
               <form onSubmit={handleSubmit}>
