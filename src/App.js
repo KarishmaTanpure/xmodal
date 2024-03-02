@@ -9,38 +9,36 @@ const XModal = () => {
     phone: '',
     dob: '',
   });
+  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (!formData.username || !formData.email || !formData.phone || !formData.dob) {
-      alert('Please fill out all fields.');
+      setError('Please fill out all fields.');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      alert('Invalid email. Please check your email address.');
+      setError('Invalid email. Please check your email address.');
     } else if (!/^\d{10}$/.test(formData.phone)) {
-      alert('Invalid phone number');
+      setError('Invalid phone number. Please enter a 10-digit phone number.');
     } else if (new Date(formData.dob) > new Date()) {
-      alert('Invalid date of birth');
+      setError('Invalid date of birth.');
     } else {
+      setError('');
       alert('Form submitted successfully.');
       setIsOpen(false);
     }
   };
-  
-  
+
   const handleClickOutside = (e) => {
     if (!e.target.closest('.modal-content')) {
       setIsOpen(false);
     }
   };
-  
-  
 
   return (
     <div className="center-container">
@@ -54,6 +52,7 @@ const XModal = () => {
             <div className="modal-content">
               <h3>Fill Details</h3>
               <form onSubmit={handleSubmit}>
+                {error && <div className="error">{error}</div>}
                 <div className="form-group">
                   <label htmlFor="username">Username:</label>
                   <input
